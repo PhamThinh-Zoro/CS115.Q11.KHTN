@@ -36,3 +36,19 @@ PCA là phương pháp giảm chiều dữ liệu sao cho lượng thông tin v�
     -  Là phương pháp phân lớp (Classification).
     -  Có thể áp dụng đồng thời cả hai.
 -	Giới hạn về số chiều mới: Số chiều tối đa của dữ liệu sau khi giảm là $C - 1$, trong đó $C$ là số lượng lớp (classes).
+## 2.3 Linear Discriminant Analysis cho bài toán 2 lớp:
+### a) Các tiêu chuẩn khi phân tách:
+- Within-class variances: **Phương sai nhỏ** thể hiện việc dữ liệu ít bị phân tán. Điều này có nghĩa là dữ liệu trong mỗi class có xu hướng giống nhau. Được ký hiệu là $s^2$
+- Between-class variances: **Khoảng cách giữa các kỳ vọng lớn** chứng tỏ rằng hai classes nằm xa nhau, tức dữ liệu giữa các classes là khác nhau nhiều. Được tính bằng phép tính bình phương khoảng cách giữa 2 kỳ vọng $(m_1 - m_2)^2$
+
+Hai classes được gọi là discriminative nếu hai class đó cách xa nhau và dữ liệu trong mỗi class có xu hướng giống nhau . Nói cách khác thì between-class variance lớn và within-class variance nhỏ. Linear Discriminant Analysis là thuật toán đi tìm một phép chiếu sao cho tỉ lệ giữa between-class variance và within-class variance lớn nhất có thể.
+### b) Xây dựng hàm mục tiêu:
+Giả sử rằng bài toán yêu cầu phân loại 2 lớp.
+
+Ta có n điểm dữ liệu được gắn nhãn (lớp 1 hoặc lớp 2). Mỗi điểm dữ liệu được mô tả bằng một vector $x_i(1\le i\le n)$
+
+Mỗi điểm dữ liệu được chiếu lên không gian mới bởi vector w.
+
+$$y_i = w^Tx_i, 1\le i\le n$$
+
+Do bài toán có 2 lớp nên số chiều được giảm xuống còn 1.
