@@ -47,7 +47,7 @@ Giả sử rằng bài toán yêu cầu phân loại 2 lớp.
 
 Ta có n điểm dữ liệu được gắn nhãn (lớp 1 hoặc lớp 2). Mỗi điểm dữ liệu được mô tả bằng một vector $x_i(1\le i\le n)$
 
-Mỗi điểm dữ liệu được chiếu lên không gian mới bởi vector w.
+Mỗi điểm dữ liệu được chiếu lên không gian mới bởi vector đích w.
 
 $$y_i = w^Tx_i, 1\le i\le n$$
 
