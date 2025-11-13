@@ -52,3 +52,22 @@ Mỗi điểm dữ liệu được chiếu lên không gian mới bởi vector �
 $$y_i = w^Tx_i, 1\le i\le n$$
 
 Do bài toán có 2 lớp nên số chiều được giảm xuống còn 1.
+
+Vector kỳ vọng của class 1 và class 2:
+
+$$m_1 = \frac{1}{N_1} \sum_{i=1}^{N_1} x_i $$
+
+$$m_2 = \frac{1}{N_2} \sum_{j=1}^{N_2} x_j $$
+
+Giá trị kỳ vọng sau khi giảm chiều:
+
+$$e_1 = \frac{1}{N_1} \sum_{i=1}^{N_1} y_i = w^T m_1$$
+
+$$e_2 = \frac{1}{N_2} \sum_{j=1}^{N_2} y_j = w^T m_2$$
+
+$$\Rightarrow (e_1 - e_2) = w^T(m_1 - m_2)$$
+
+Between class variance:
+
+$$s_1^2 = \sum_{i=1}^{N_1} (y_i - e_1)^2 $$
+$$s_2^2 = \sum_{j=1}^{N_2} (y_j - e_2)^2 $$
