@@ -67,7 +67,32 @@ $$e_2 = \frac{1}{N_2} \sum_{j=1}^{N_2} y_j = w^T m_2$$
 
 $$\Rightarrow (e_1 - e_2) = w^T(m_1 - m_2)$$
 
-Between class variance:
+Within-class variance:
 
 $$s_1^2 = \sum_{i=1}^{N_1} (y_i - e_1)^2 $$
 $$s_2^2 = \sum_{j=1}^{N_2} (y_j - e_2)^2 $$
+
+$$J(w) = \frac{(e_1 - e_2)^2}{s_1^2 + s_2^2}$$
+
+LDA là thuật toán tìm giá trị lớn nhất của hàm $J(w)$
+
+$$(e_1 - e_2)^2 = w^T(m_1 - m_2)(m_1 - m_2)^T w = w^T S_B w$$
+
+Với $S_B=(m_1 - m_2)(m_1 - m_2)^T$ là một ma trận đối xứng nửa xác định dương. Còn được gọi là between-class covariance matrix
+$s_1^2 + s_2^2 = \sum_{k=1}^{2}\sum_{i=1}^{N_k} (y_i - e_k)^2$
+
+mà $(y_i - e_k)^2 = (w^T (x_i - m_k))^2$
+
+$$
+\begin{aligned}
+\Rightarrow s_1^2 + s_2^2 &= \sum_{k=1}^{2}\sum_{i=1}^{N_k} (w^T (x_i - m_k))^2  \\
+&= w^T \sum_{k=1}^{2}\sum_{i=1}^{N_k} (x_i - m_k)(x_i - m_k)^T w \\
+&= w^T S_W w
+\end{aligned}
+$$
+
+Với $S_W = \sum_{k=1}^{2}\sum_{i=1}^{N_k} (x_i - m_k)(x_i - m_k)^T $
+
+$S_W$ cũng là một ma trận đối xứng nửa xác định dương. Còn được gọi là within-class covariance matrix.
+
+$$\Rightarrow J(w) = \frac{w^T S_B w}{w^T S_W w} $$
