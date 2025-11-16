@@ -55,22 +55,22 @@ Do bài toán có 2 lớp nên số chiều được giảm xuống còn 1.
 
 Vector kỳ vọng của class 1 và class 2:
 
-$$m_1 = \frac{1}{N_1} \sum_{i=1}^{N_1} x_i $$
+$$m_1 = \frac{1}{N_1} \sum_{i \in C_1} x_i $$
 
-$$m_2 = \frac{1}{N_2} \sum_{j=1}^{N_2} x_j $$
+$$m_2 = \frac{1}{N_2} \sum_{j \in C_2} x_j $$
 
 Giá trị kỳ vọng sau khi giảm chiều:
 
-$$e_1 = \frac{1}{N_1} \sum_{i=1}^{N_1} y_i = w^T m_1$$
+$$e_1 = \frac{1}{N_1} \sum_{i \in C_1} y_i = w^T m_1$$
 
-$$e_2 = \frac{1}{N_2} \sum_{j=1}^{N_2} y_j = w^T m_2$$
+$$e_2 = \frac{1}{N_2} \sum_{j \in C_2} y_j = w^T m_2$$
 
 $$\Rightarrow (e_1 - e_2) = w^T(m_1 - m_2)$$
 
 Within-class variance:
 
-$$s_1^2 = \sum_{i=1}^{N_1} (y_i - e_1)^2 $$
-$$s_2^2 = \sum_{j=1}^{N_2} (y_j - e_2)^2 $$
+$$s_1^2 = \sum_{i \in C_1} (y_i - e_1)^2 $$
+$$s_2^2 = \sum_{j \in C_2} (y_j - e_2)^2 $$
 
 $$J(w) = \frac{(e_1 - e_2)^2}{s_1^2 + s_2^2}$$
 
@@ -85,13 +85,13 @@ mà $(y_i - e_k)^2 = (w^T (x_i - m_k))^2$
 
 $$
 \begin{aligned}
-\Rightarrow s_1^2 + s_2^2 &= \sum_{k=1}^{2}\sum_{i=1}^{N_k} (w^T (x_i - m_k))^2  \\
-&= w^T \sum_{k=1}^{2}\sum_{i=1}^{N_k} (x_i - m_k)(x_i - m_k)^T w \\
+\Rightarrow s_1^2 + s_2^2 &= \sum_{k=1}^{2}\sum_{i \in C_k} (w^T (x_i - m_k))^2  \\
+&= w^T \sum_{k=1}^{2}\sum_{i \in C_k} (x_i - m_k)(x_i - m_k)^T w \\
 &= w^T S_W w
 \end{aligned}
 $$
 
-Với $S_W = \sum_{k=1}^{2}\sum_{i=1}^{N_k} (x_i - m_k)(x_i - m_k)^T $
+Với $S_W = \sum_{k=1}^{2}\sum_{i \in C_k} (x_i - m_k)(x_i - m_k)^T $
 
 $S_W$ cũng là một ma trận đối xứng nửa xác định dương. Còn được gọi là within-class covariance matrix.
 
@@ -113,4 +113,35 @@ $$
 \Rightarrow \mathbf{w} &\propto \mathbf{S}_W^{-1} (\mathbf{m}_1 - \mathbf{m}_2)
 \end{aligned}
 $$
-## Linear Discriminant Analysis cho bài toán nhiều lớp
+## 2.4 Linear Discriminant Analysis cho bài toán nhiều lớp
+### a) Xây dựng hàm thành phần:
+Giả sử rằng chiều mà chúng ta muốn giảm về là D′<D và dữ liệu mới ứng với mỗi điểm dữ liệu x là:
+
+**$$ y=W^T x $$**
+
+với $W^T \in R^ {D \times D'}$
+
+Ma trận dữ liệu trong không gian mới có D' chiều:
+
+$$Y_k = W^T X_k $$
+
+Với $X_k$ là ma trận dữ liệu trong không gian ban đầu
+
+Vector kỳ vọng của class k trong không gian ban đầu với số chiều D:
+
+$$m_k = \frac{1}{N_k} \sum_{i \in C_k} x_i $$
+
+Vector kỳ vọng của class k trong không gian mới sau khi giảm chiều còn D':
+
+$$e_k = \frac{1}{N_k} \sum_{i \in C_k} y_i = W^T m_k $$
+
+### b) Xây dựng hàm mất mát
+Within_class variance:
+
+${\sigma_k}^2 = \sum_{i \in C_k} \lVert y_n - e_k\rVert_2^2 $
+
+$=\lVert Y_k - E_k \rVert_2^2 $
+
+$=\lVert W^T(X_k - M_k) \rVert_2^2 $
+
+$=trace(W^T(X_k - M_k)(X_k - M_k)^T W) $
