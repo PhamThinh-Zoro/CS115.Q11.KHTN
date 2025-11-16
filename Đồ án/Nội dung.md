@@ -96,3 +96,21 @@ Với $S_W = \sum_{k=1}^{2}\sum_{i=1}^{N_k} (x_i - m_k)(x_i - m_k)^T $
 $S_W$ cũng là một ma trận đối xứng nửa xác định dương. Còn được gọi là within-class covariance matrix.
 
 $$\Rightarrow J(w) = \frac{w^T S_B w}{w^T S_W w} $$
+### c) Nghiệm tối ưu của bài toán:
+Nghiệm $w$ để $J(w)$ đạt giá trị lớn nhất chính là nghiệm w của phương trình
+
+$$\frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} = 0 $$
+
+$$
+\begin{aligned}
+\Leftrightarrow \mathbf{S}_B \mathbf{w} &= \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}} \mathbf{S}_W \mathbf{w} \\
+\Leftrightarrow \mathbf{S}_W^{-1} \mathbf{S}_B \mathbf{w} &= J(\mathbf{w}) \mathbf{w} \\
+\text{Với } \mathbf{A} &= \mathbf{S}_W^{-1} \mathbf{S}_B \text{ và } \lambda = J(\mathbf{w}), \text{ ta có: } \mathbf{A} \mathbf{w} = \lambda \mathbf{w} \\
+\text{Thay } \mathbf{S}_B &= (\mathbf{m}_1 - \mathbf{m}_2)(\mathbf{m}_1 - \mathbf{m}_2)^T \text{ (cho 2 lớp) được: } \\
+\mathbf{S}_W^{-1} (\mathbf{m}_1 - \mathbf{m}_2)(\mathbf{m}_1 - \mathbf{m}_2)^T \mathbf{w} &= \lambda \mathbf{w} \\
+\text{Đặt } k &= (\mathbf{m}_1 - \mathbf{m}_2)^T \mathbf{w} \text{ (là một số vô hướng)} \\
+\Rightarrow w &= \frac{k}{\lambda} {S_W}^{-1} (m_1 - m_2)\\
+\Rightarrow \mathbf{w} &\propto \mathbf{S}_W^{-1} (\mathbf{m}_1 - \mathbf{m}_2)
+\end{aligned}
+$$
+## Linear Discriminant Analysis cho bài toán nhiều lớp
