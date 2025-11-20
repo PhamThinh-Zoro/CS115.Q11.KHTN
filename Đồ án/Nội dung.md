@@ -145,3 +145,69 @@ $=\lVert Y_k - E_k \rVert_2^2 $
 $=\lVert W^T(X_k - M_k) \rVert_2^2 $
 
 $=trace(W^T(X_k - M_k)(X_k - M_k)^T W) $
+
+Với $E_k$ là một ma trận có các cột giống hệt nhau và bằng với vector kỳ vọng $e_k$. Có thể thấy $E_k=W^T M_k$ với $M_k$ là ma trận có các cột giống hệt nhau và bằng với vector kỳ vọng $m_k$ trong không gian ban đầu.
+
+Đại lượng đo within-class trong multi-class LDA có thể được đo bằng:
+
+$$s_W = \sum_{k=1}^{C}{\sigma_k}^2 = \sum_{k=1}^{C} trace(W^T(X_k - M_k)(X_k - M_k)^T W) \\
+= trace(W^T S_W W)
+$$
+
+với:
+
+$$
+S_W = \sum_{k=1}^{C}(X_k - M_k)(X_k - M_k)^T = \sum_{k=1}^{C}\sum_{n \in C_k} (x_n - m_k)(x_n - m_k)^T
+$$
+
+$S_W$ có thể được coi là **within-class covariance matrix của  multi-class LDA.** Ma trận $S_W$ này là một ma trận nửa xác định dương.
+
+Tương tự, between-class variance được tính theo công thức:
+
+$$
+s_B = \sum_{k=1}^{C}N_k \lVert e_k - e\rVert_2^2 = \sum_{k=1}^{C}\lVert E_k - E\rVert_2^2
+$$
+
+$N_k$ làm trọng số vì có những class có nhiều phần tử so với các classes còn lại.
+
+Ma trận E và $E_k$ có số cột biến thiên và bằng với $N_k$.
+
+Tương tự như within-class variance:
+
+$$
+s_B = trace(W^T S_B W)
+$$
+
+với:
+
+$$
+S_B = \sum_{k=1}^{C}(M_k - M)(M_k - M)^T = \sum_{k=1}^{C}N_k (m_k - m)(m_k - m)^T
+$$
+
+Số cột của **M** cũng linh hoạt theo số cột của **$M_k** và bằng với $N_k$
+
+### c) Tìm nghiệm tối ưu:
+
+Nghiệm tối ưu cho bài toán LDA multi-class là tìm W sao cho tỉ lệ giữa $s_B$ và $s_W$ lớn nhất
+
+$$
+W = \underset{W}{\text{arg max}} \ J(W) = \underset{W}{\text{arg max}} \ \frac{\text{trace}(W^T S_B W)}{\text{trace}(W^T S_W W)}
+$$
+
+Điều đó có nghĩa là tìm nghiệm W cho phương trình
+
+$$\frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} = 0 $$
+
+$$
+\Leftrightarrow \frac{2S_B W trace(W^T S_W W) - trace(W^T S_B W) 2 S_W W}{(trace(W^T S_W W))^2} = 0 
+$$
+
+$$
+\Leftrightarrow {S_W}^{-1} S_B W = J W
+$$
+
+Ma trận W tối ưu chính là ma trận chứa các vector riêng của ${S_W}^{-1} S_B$ tương ứng với các giá trị riêng lớn nhất J
+
+Số lượng các vector độc lập tuyến tính ứng với 1 trị riêng chính là rank của không gian riêng ứng với trị riêng đó, và không được vượt quá C-1, với C là số lớp của bài toán.
+
+# 3. Quadratic Discriminant Analysis:
