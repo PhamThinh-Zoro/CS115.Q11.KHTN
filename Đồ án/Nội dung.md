@@ -211,3 +211,36 @@ Ma trận W tối ưu chính là ma trận chứa các vector riêng của ${S_W
 Số lượng các vector độc lập tuyến tính ứng với 1 trị riêng chính là rank của không gian riêng ứng với trị riêng đó, và không được vượt quá C-1, với C là số lớp của bài toán.
 
 # 3. Quadratic Discriminant Analysis:
+## 3.1. Giới thiệu:
+Quadratic Discriminant Analysis khá tương đồng với LDA, ngoại trừ việc loại bỏ giả định các lớp có cùng ma trận hiệp phương sai. Thay vào đó, QDA ước lượng ma trận hiệp phương sai riêng cho từng lớp, giúp mô hình linh hoạt hơn với dữ liệu có độ phân tán khác nhau.
+
+Cả LDA và QDA đều được xây dựng dựa trên các mô hình xác suất, trong đó chúng ta mô hình hóa phân phối có điều kiện của dữ liệu $P(X|y=k)$ cho từng lớp $k$.
+
+Dựa trên định lý Bayes, xác suất hậu nghiệm (posterior probability) cho mỗi mẫu dữ liệu huấn luyện $x \in \mathcal{R}^d$ được tính toán như sau:
+
+$$
+P(y=k|x) = \frac{P(x|y=k) P(y=k)}{P(x)} = \frac{P(x|y=k) P(y=k)}{\sum_{l} P(x|y=l) P(y=l)}
+$$
+
+và chọn class k sao cho tối đa hóa hàm P
+
+$$
+P(x|y=k) = \frac{1}{(2\pi)^{\frac {d}{2}} \left | \sum_{k} \right |^ 0.5} exp
+$$
+
+$$
+P(x|y=k) = \frac{1}{(2\pi)^{d/2}|\Sigma_k|^{1/2}} \exp \left( -\frac{1}{2}(x - \mu_k)^t \Sigma_k^{-1} (x - \mu_k) \right)
+$$
+
+với d là số thuộc tính
+
+Dựa trên mô hình nêu trên, logarit của xác suất hậu nghiệm là:
+
+$$
+\begin{aligned}
+\log P(y = k|x) &= \log P(x|y = k) + \log P(y = k) + Cst \\
+&= -\frac{1}{2}\log |\Sigma_k| - \frac{1}{2}(x - \mu_k)^t \Sigma_k^{-1} (x - \mu_k) + \log P(y = k) + Cst,
+\end{aligned}
+$$
+
+trong đó số hạng hằng số $Cst$ tương ứng với mẫu số $P(x)$, cộng với các hằng số khác từ phân phối Gaussian. Lớp dự đoán sẽ là lớp làm cực đại hóa giá trị log-hậu nghiệm này.
