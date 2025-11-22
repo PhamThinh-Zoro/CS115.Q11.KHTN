@@ -215,6 +215,24 @@ Số lượng các vector độc lập tuyến tính ứng với 1 trị riêng 
 Quadratic Discriminant Analysis khá tương đồng với LDA, ngoại trừ việc loại bỏ giả định các lớp có cùng ma trận hiệp phương sai. Thay vào đó, QDA ước lượng ma trận hiệp phương sai riêng cho từng lớp, giúp mô hình linh hoạt hơn với dữ liệu có độ phân tán khác nhau.
 
 Cả LDA và QDA đều được xây dựng dựa trên các mô hình xác suất, trong đó chúng ta mô hình hóa phân phối có điều kiện của dữ liệu $P(X|y=k)$ cho từng lớp $k$.
+## 3.2 Tiền xử lý:
+Xác suất tiên nghiệm:
+
+$$
+\pi_k = \frac{N_k}{N}
+$$
+
+Với N_k là số mẫu thuộc lớp k, N là tổng số mẫu.
+
+Vector trung bình (${\mu}_k$):
+
+$${\mu}_k = \frac{1}{N_k} \sum_{x_i \in C_k} x_i$$
+
+Ma trận hiệp phương sai (${\Sigma}_k$):
+
+$${\Sigma}_k = \frac{1}{N_k - 1} \sum_{x_i \in C_k} (x_i - {\mu}_k)(x_i - {\mu}_k)^T$$
+
+## 3.3 Tìm xác suất hậu nghiệm tối ưu:
 
 Dựa trên định lý Bayes, xác suất hậu nghiệm (posterior probability) cho mỗi mẫu dữ liệu huấn luyện $x \in \mathcal{R}^d$ được tính toán như sau:
 
@@ -225,7 +243,7 @@ $$
 và chọn class k sao cho tối đa hóa hàm P
 
 $$
-P(x|y=k) = \frac{1}{(2\pi)^{\frac {d}{2}} \left | \sum_{k} \right |^ 0.5} exp
+P(x|y=k) = \frac{1}{(2\pi)^{{d/2}} \left | \sum_{k} \right |^ {1/2}} exp
 $$
 
 $$
@@ -239,8 +257,13 @@ Dựa trên mô hình nêu trên, logarit của xác suất hậu nghiệm là:
 $$
 \begin{aligned}
 \log P(y = k|x) &= \log P(x|y = k) + \log P(y = k) + Cst \\
-&= -\frac{1}{2}\log |\Sigma_k| - \frac{1}{2}(x - \mu_k)^t \Sigma_k^{-1} (x - \mu_k) + \log P(y = k) + Cst,
+&= -\frac{1}{2}\log |\Sigma_k| - \frac{1}{2}(x - \mu_k)^t \Sigma_k^{-1} (x - \mu_k) + \log P(y = k) + Cst \\
+&= \log \pi_k  - \frac{1}{2} \log |\Sigma_k| - \frac{1}{2} \mu_k^T \Sigma_k^{-1} \mu_k + x^T \Sigma_k^{-1} \mu_k - \frac{1}{2} x^T \Sigma_k^{-1} x + Cst,
 \end{aligned}
 $$
 
-trong đó số hạng hằng số $Cst$ tương ứng với mẫu số $P(x)$, cộng với các hằng số khác từ phân phối Gaussian. Lớp dự đoán sẽ là lớp làm cực đại hóa giá trị log-hậu nghiệm này.
+trong đó số hạng hằng số $Cst$ tương ứng với mẫu số $P(x)$, cộng với các hằng số khác từ phân phối Gaussian, hằng số này có thể bỏ qua trong quá trình phân loại. Lớp dự đoán sẽ là lớp làm cực đại hóa giá trị log-hậu nghiệm này.
+## 3.4 Nhận xét:
+Khác với LDA (nơi ma trận hiệp phương sai được giả định giống nhau cho mọi lớp), QDA cho phép mỗi lớp có ma trận hiệp phương sai $\Sigma_k$ riêng. Chính nhờ thành phần bậc hai $x^T \Sigma_k^{-1} x$ được giữ lại trong hàm phân biệt, biên phân chia giữa các lớp trong QDA là các đường cong bậc hai như parabol, elip hoặc hyperbol, cho phép mô hình phân loại linh hoạt hơn.
+
+Tuy nhiên, sự linh hoạt này đi kèm với việc số lượng tham số cần ước lượng tăng lên đáng kể. Do đó, QDA thường yêu cầu lượng dữ liệu huấn luyện lớn hơn để đảm bảo độ tin cậy và tránh hiện tượng quá khớp (overfitting) so với LDA.
