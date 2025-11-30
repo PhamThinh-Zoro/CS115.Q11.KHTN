@@ -222,7 +222,7 @@ $$
 \pi_k = \frac{N_k}{N}
 $$
 
-Với N_k là số mẫu thuộc lớp k, N là tổng số mẫu.
+Với $N_k$ là số mẫu thuộc lớp k, N là tổng số mẫu.
 
 Vector trung bình (${\mu}_k$):
 
