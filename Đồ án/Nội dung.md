@@ -243,10 +243,6 @@ $$
 và chọn class k sao cho tối đa hóa hàm P
 
 $$
-P(x|y=k) = \frac{1}{(2\pi)^{{d/2}} \left | \Sigma_{k} \right |^ {1/2}} exp
-$$
-
-$$
 P(x|y=k) = \frac{1}{(2\pi)^{d/2}|\Sigma_k|^{1/2}} \exp \left( -\frac{1}{2}(x - \mu_k)^t \Sigma_k^{-1} (x - \mu_k) \right)
 $$
 
